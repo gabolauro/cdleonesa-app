@@ -61,6 +61,7 @@ class NewsPage extends StatelessWidget {
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: NewsBanner(
+                        id: 0,
                         image: Image.asset(
                           'assets/images/news_banner_01.png',
                           fit: BoxFit.cover,
@@ -77,6 +78,7 @@ class NewsPage extends StatelessWidget {
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: NewsBanner(
+                        id: 0,
                         image: Image.asset(
                           'assets/images/news_banner_01.png',
                           fit: BoxFit.cover,
@@ -93,6 +95,7 @@ class NewsPage extends StatelessWidget {
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: NewsBanner(
+                        id: 0,
                         image: Image.asset(
                           'assets/images/news_banner_01.png',
                           fit: BoxFit.cover,

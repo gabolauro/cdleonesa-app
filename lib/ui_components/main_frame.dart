@@ -2,6 +2,7 @@ import 'package:cd_leonesa_app/constants/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'package:url_launcher/url_launcher.dart';
 
 
 class MainFrame extends StatefulWidget {
@@ -101,14 +102,16 @@ class _MainFrameState extends State<MainFrame> {
             svgAsset: 'assets/images/store.svg',
             title: 'Tienda',
             callback: () {
-              Navigator.pushNamed(context, 'store');
+              Uri _url = Uri.parse('https://shop.cydleonesa.com/es/');
+              _launchUrl(_url);
             }
           ),
           _menuItem(
             svgAsset: 'assets/images/museum.svg',
             title: 'Museo',
             callback: () {
-              Navigator.pushNamed(context, 'museum');
+              Uri _url = Uri.parse('https://estadio-virtual.cydleonesa.com/');
+              _launchUrl(_url);
             }
           ),
         ],
@@ -140,6 +143,12 @@ class _MainFrameState extends State<MainFrame> {
             ),
           ),
     );
+  }
+
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw 'Could not launch $url';
+    }
   }
 }
 

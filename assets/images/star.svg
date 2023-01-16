@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: CorelDRAW -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%" 
 viewBox="0 0 0.84984 0.80821"
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
@@ -116,11 +116,11 @@ viewBox="0 0 0.84984 0.80821"
 <symbol id="Fm3-23-0" viewBox="36.1173 -43.6792 13.7656 11.6721">
  <polygon class="fil3" points="36.1173,-32.0071 49.8829,-32.0071 49.8829,-43.6792 36.1173,-43.6792 "/>
 </symbol>
-<symbol id="Fm0-62-0" viewBox="36.1548 -25.2235 14.2583 7.6132">
+<!-- <symbol id="Fm0-62-0" viewBox="36.1548 -25.2235 14.2583 7.6132">
  <g style="clip-path:url(#id0)">
   <image transform="matrix(1 0 0 1 0.59818 -11.5032)" x="35.5566" y="-13.7224" width="19.4802" height="7.61535" xlink:href="star_Images\star_ImgID1.png"/>
  </g>
-</symbol>
+</symbol> -->
 <symbol id="Fm4-25-0" viewBox="36.1172 -44.3105 13.7657 0.62368">
  <path class="fil4" d="M36.1172 -43.6869l13.7657 0 0 -0.06551c0,-0.30826 -0.24991,-0.55817 -0.5582,-0.55817l-12.6493 0c-0.30829,0 -0.5582,0.24991 -0.5582,0.55817l0 0.06551z"/>
 </symbol>
@@ -175,7 +175,7 @@ viewBox="0 0 0.84984 0.80821"
 <symbol id="Fm0-140-0" viewBox="35.8961 -16.9784 14.4221 5.83424">
  <polygon class="fil15" points="35.8961,-11.1442 50.3182,-11.1442 50.3182,-16.9784 35.8961,-16.9784 "/>
 </symbol>
-<symbol id="Símbolo11" viewBox="66.0203 -28.467 21 11.2129">
+<!-- <symbol id="Símbolo11" viewBox="66.0203 -28.467 21 11.2129">
  <polygon class="fil16" points="66.0203,-17.2541 87.0203,-17.2541 87.0203,-28.467 66.0203,-28.467 "/>
  <g style="clip-path:url(#id1)">
  </g>
@@ -185,7 +185,7 @@ viewBox="0 0 0.84984 0.80821"
  <g style="clip-path:url(#id3)">
  </g>
  <polygon class="fil17" points="66.0203,-17.2541 87.0203,-17.2541 87.0203,-28.467 66.0203,-28.467 "/>
-</symbol>
+</symbol> -->
 <symbol id="Símbolo15" viewBox="65.2288 -47.4163 21 11.2428">
  <polygon class="fil18" points="65.2288,-36.1736 86.2288,-36.1736 86.2288,-47.4163 65.2288,-47.4163 "/>
 </symbol>

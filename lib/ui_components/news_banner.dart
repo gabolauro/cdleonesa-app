@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 
 class NewsBanner extends StatelessWidget {
 
+  final int id;
   final Image image;
   final String title;
 
   const NewsBanner({
-    Key? key, required this.image, required this.title,
+    Key? key, required this.image, required this.title, required this.id,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'single_news');
+        Navigator.pushNamed(context, 'single_news', arguments: this.id);
       },
       child: Stack(
         children: [

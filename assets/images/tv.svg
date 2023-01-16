@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: CorelDRAW -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%" 
 viewBox="0 0 1.09538 0.93068"
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
@@ -116,11 +116,11 @@ viewBox="0 0 1.09538 0.93068"
 <symbol id="Fm3-23-0" viewBox="18.1805 -29.7576 13.7656 11.6721">
  <polygon class="fil3" points="18.1805,-18.0855 31.9461,-18.0855 31.9461,-29.7576 18.1805,-29.7576 "/>
 </symbol>
-<symbol id="Fm0-62-0" viewBox="18.218 -11.3019 14.2583 7.6132">
+<!-- <symbol id="Fm0-62-0" viewBox="18.218 -11.3019 14.2583 7.6132">
  <g style="clip-path:url(#id0)">
   <image transform="matrix(1 0 0 1 0.59818 -11.5032)" x="17.6198" y="0.19921" width="19.4802" height="7.61535" xlink:href="tv_Images\tv_ImgID1.png"/>
  </g>
-</symbol>
+</symbol> -->
 <symbol id="Fm4-25-0" viewBox="18.1804 -30.389 13.7657 0.62368">
  <path class="fil4" d="M18.1804 -29.7653l13.7657 0 0 -0.06551c0,-0.30826 -0.24991,-0.55817 -0.5582,-0.55817l-12.6493 0c-0.30829,0 -0.5582,0.24991 -0.5582,0.55817l0 0.06551z"/>
 </symbol>
@@ -179,9 +179,9 @@ viewBox="0 0 1.09538 0.93068"
  <polygon class="fil16" points="48.0835,-3.3325 69.0835,-3.3325 69.0835,-14.5454 48.0835,-14.5454 "/>
  <g style="clip-path:url(#id1)">
  </g>
- <g style="clip-path:url(#id2)">
+ <!-- <g style="clip-path:url(#id2)">
   <image transform="matrix(1 0 0 1 30.4637 -11.147)" x="17.6198" y="-3.40153" width="28.691" height="11.2161" xlink:href="tv_Images\tv_ImgID2.png"/>
- </g>
+ </g> -->
  <g style="clip-path:url(#id3)">
  </g>
  <polygon class="fil17" points="48.0835,-3.3325 69.0835,-3.3325 69.0835,-14.5454 48.0835,-14.5454 "/>

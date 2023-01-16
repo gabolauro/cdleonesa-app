@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: CorelDRAW -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%"
 viewBox="0 0 0.84665 0.72905"
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
@@ -116,11 +116,11 @@ viewBox="0 0 0.84665 0.72905"
 <symbol id="Fm3-23-0" viewBox="39.9347 -34.1732 13.7656 11.6721">
  <polygon class="fil3" points="39.9347,-22.501 53.7004,-22.501 53.7004,-34.1732 39.9347,-34.1732 "/>
 </symbol>
-<symbol id="Fm0-62-0" viewBox="39.9722 -15.7174 14.2583 7.6132">
+<!-- <symbol id="Fm0-62-0" viewBox="39.9722 -15.7174 14.2583 7.6132">
  <g style="clip-path:url(#id0)">
   <image transform="matrix(1 0 0 1 0.59818 -11.5032)" x="39.3741" y="-4.21634" width="19.4802" height="7.61535" xlink:href="heart_Images\heart_ImgID1.png"/>
  </g>
-</symbol>
+</symbol> -->
 <symbol id="Fm4-25-0" viewBox="39.9347 -34.8045 13.7657 0.62368">
  <path class="fil4" d="M39.9347 -34.1808l13.7657 0 0 -0.06551c0,-0.30826 -0.24991,-0.55817 -0.5582,-0.55817l-12.6493 0c-0.30829,0 -0.5582,0.24991 -0.5582,0.55817l0 0.06551z"/>
 </symbol>
@@ -175,7 +175,7 @@ viewBox="0 0 0.84665 0.72905"
 <symbol id="Fm0-140-0" viewBox="39.7135 -7.4724 14.4221 5.83424">
  <polygon class="fil15" points="39.7135,-1.63816 54.1357,-1.63816 54.1357,-7.4724 39.7135,-7.4724 "/>
 </symbol>
-<symbol id="Símbolo11" viewBox="69.8378 -18.961 21 11.2129">
+<!-- <symbol id="Símbolo11" viewBox="69.8378 -18.961 21 11.2129">
  <polygon class="fil16" points="69.8378,-7.74805 90.8378,-7.74805 90.8378,-18.961 69.8378,-18.961 "/>
  <g style="clip-path:url(#id1)">
  </g>
@@ -185,7 +185,7 @@ viewBox="0 0 0.84665 0.72905"
  <g style="clip-path:url(#id3)">
  </g>
  <polygon class="fil17" points="69.8378,-7.74805 90.8378,-7.74805 90.8378,-18.961 69.8378,-18.961 "/>
-</symbol>
+</symbol> -->
 <symbol id="Símbolo15" viewBox="69.0463 -37.9103 21 11.2428">
  <polygon class="fil18" points="69.0463,-26.6675 90.0463,-26.6675 90.0463,-37.9103 69.0463,-37.9103 "/>
 </symbol>
