@@ -2,9 +2,9 @@
     package="com.example.cd_leonesa_app">
    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="cd_leonesa_app"
+        android:label="Cultural y Deportiva Leonesa"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"

@@ -1,10 +1,13 @@
 import 'package:cd_leonesa_app/constants/themes.dart';
+import 'package:cd_leonesa_app/models/game_model.dart';
+import 'package:cd_leonesa_app/services/game_service.dart';
 import 'package:cd_leonesa_app/ui_components/main_frame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 
@@ -16,22 +19,23 @@ class CalendarListPage extends StatefulWidget {
 }
 
 class _CalendarListPageState extends State<CalendarListPage> {
-  String _month = '1';
+  String _month = '01';
   String _year = '';
   List<Map> listOfMonth = [
-    { 'num': 1, 'name': 'ENE' },
-    { 'num': 2, 'name': 'FEB' },
-    { 'num': 3, 'name': 'MAR' },
-    { 'num': 4, 'name': 'ABR' },
-    { 'num': 5, 'name': 'MAY' },
-    { 'num': 6, 'name': 'JUN' },
-    { 'num': 7, 'name': 'JUL' },
-    { 'num': 8, 'name': 'AGO' },
-    { 'num': 9, 'name': 'SEP' },
-    { 'num': 10, 'name': 'OCT' },
-    { 'num': 11, 'name': 'NOV' },
-    { 'num': 12, 'name': 'DIC' },
+    { 'num': '01', 'name': 'ENE' },
+    { 'num': '02', 'name': 'FEB' },
+    { 'num': '03', 'name': 'MAR' },
+    { 'num': '04', 'name': 'ABR' },
+    { 'num': '05', 'name': 'MAY' },
+    { 'num': '06', 'name': 'JUN' },
+    { 'num': '07', 'name': 'JUL' },
+    { 'num': '08', 'name': 'AGO' },
+    { 'num': '09', 'name': 'SEP' },
+    { 'num': '10', 'name': 'OCT' },
+    { 'num': '11', 'name': 'NOV' },
+    { 'num': '12', 'name': 'DIC' },
   ];
+  List<Game> listOfGame = [];
 
   @override
   void initState() {
@@ -40,7 +44,12 @@ class _CalendarListPageState extends State<CalendarListPage> {
     _year = DateTime.now().year.toString();
   }
 
-  List<Widget> _buildMonthList() {
+  List<Widget> _buildMonthList(BuildContext context) {
+
+    final gameService = Provider.of<GameService>(context);
+
+    listOfGame = gameService.getGamesByMonth('$_year-$_month');
+
     List<Widget> list = [];
     if (_month.isNotEmpty) {
       listOfMonth.forEach((month) {
@@ -49,6 +58,7 @@ class _CalendarListPageState extends State<CalendarListPage> {
             onTap: (() {
               setState(() {
                 _month = month['num'].toString();
+                listOfGame = gameService.getGamesByMonth('$_year-${month['num']}');
               });
             }),
             child: Container(
@@ -57,7 +67,7 @@ class _CalendarListPageState extends State<CalendarListPage> {
                 month['name'],
                 style: TextStyle(
                   fontSize: 14,
-                  fontWeight: num.parse(_month) == month['num']
+                  fontWeight: _month == month['num']
                     ? FontWeight.w800
                     : FontWeight.w400,
                 ),
@@ -66,7 +76,7 @@ class _CalendarListPageState extends State<CalendarListPage> {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: num.parse(_month) == month['num']
+                    color: _month == month['num']
                       ? Colors.black87
                       : Colors.transparent,
                     width: 1.5
@@ -156,19 +166,38 @@ class _CalendarListPageState extends State<CalendarListPage> {
                       ),
                       child: Column(
                         children: [
-                          ..._buildMonthList()
+                          ..._buildMonthList(context)
                         ],
                       ),
                     ),
                     SizedBox(width: 20,),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          EventCard(),
-                          EventCard(),
-                          EventCard(),
-                        ],
+                    listOfGame.isEmpty
+                    ? Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                        alignment: Alignment.center,
+                        child: Text(
+                          'No hay partidos agendados este mes',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: MainTheme.mainColor,
+                            fontWeight: FontWeight.w200,
+                            decoration: TextDecoration.none
+                          ),
+                        ),
                       ),
+                    )
+                    : Expanded(
+                      child:
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: listOfGame.length,
+                        itemBuilder: ((context, index) {
+                          return EventCard(game: listOfGame[index],);
+                        })
+                      ) 
                     ),
                   ],
                 ),
@@ -186,8 +215,10 @@ class _CalendarListPageState extends State<CalendarListPage> {
 }
 
 class EventCard extends StatelessWidget {
+  final Game game;
   const EventCard({
     Key? key,
+    required this.game,
   }) : super(key: key);
 
   @override
@@ -217,7 +248,7 @@ class EventCard extends StatelessWidget {
                 children: [
                   RichText(
                     text: TextSpan(
-                      text: 'VIERNES',
+                      text: DateFormat('EEEE', 'es').format(game.fecha!).toUpperCase(),
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.black87,
@@ -226,7 +257,7 @@ class EventCard extends StatelessWidget {
                         ),
                       children: [
                           TextSpan(
-                            text: ' 06 ENE',
+                            text: DateFormat(' D MMMM', 'es').format(game.fecha!).toUpperCase(),
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                             ),
@@ -235,7 +266,7 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '17:00 H.',
+                    DateFormat('HH:mm', 'es').format(game.fecha!).toUpperCase(),
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.black87,
@@ -275,12 +306,9 @@ class EventCard extends StatelessWidget {
                     constraints: BoxConstraints(minWidth: double.infinity, maxHeight: 80),
                     child: Row(
                       children: [
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Image.asset('assets/images/logo_01.png'),
-                          ),
-                        ),
+                        game.local!
+                          ? _theTeam()
+                          : _otherTeam(),
                         Text(
                           'VS',
                           style: TextStyle(
@@ -291,19 +319,16 @@ class EventCard extends StatelessWidget {
                             letterSpacing: -5
                           ),
                         ),
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Image.network(
-                              'https://cydleonesa.com/wp-content/uploads/2023/01/adceuta-logo.png'
-                            ),
-                          ),
-                        ),
+                        game.local!
+                          ? _otherTeam()
+                          : _theTeam(),
                       ],
                     ),
                   ),
                   Text(
-                    'Cultural',
+                    game.local!
+                      ? 'Cultural'
+                      : game.equipoContrario!,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black87,
@@ -312,7 +337,9 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Unionista',
+                    !game.local!
+                      ? 'Cultural'
+                      : game.equipoContrario!,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black87,
@@ -321,7 +348,7 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Estadio Reino de Leon',
+                    game.lugarDelParido ?? '',
                     style: TextStyle(
                       fontSize: 16,
                       color: MainTheme.mainColor,
@@ -362,6 +389,29 @@ class EventCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Expanded _otherTeam() {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.all(5),
+        child:
+        game.resourceMedia != null
+          ? Image.network(
+            game.resourceMedia ?? '',
+            fit: BoxFit.contain,)
+          : Icon(Icons.shield, size: 50, color: Colors.black26,),
+      ),
+    );
+  }
+
+  Expanded _theTeam() {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.all(5),
+        child: Image.asset('assets/images/logo_01.png'),
       ),
     );
   }

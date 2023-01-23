@@ -7,27 +7,29 @@ class Partner {
   Partner(
     this.title,
     this.logos,
-    [this.isExpanded = false]
+    this.isExpanded
   );
   String title;
   List<String> logos;
-  bool isExpanded;
+  bool isExpanded = false;
 }
 
 List<Partner> getPartners() {
   return [
     Partner('Deportivos', [
       'assets/images/sponsor_05.png'
-    ]),
+    ],
+    true),
     Partner('Oficiales', [
       'assets/images/sponsor_01.png',
       'assets/images/sponsor_02.png',
       'assets/images/sponsor_03.png',
       'assets/images/sponsor_04.png',
-    ]),
-    Partner('Institucionales', []),
-    Partner('Otras definiciones', []),
-    Partner('Otras definiciones', []),
+    ],
+    true),
+    Partner('Institucionales', [], false),
+    Partner('Otras definiciones', [], false),
+    Partner('Otras definiciones', [], false),
   ];
 }
 
@@ -65,7 +67,7 @@ class _PartnerListState extends State<PartnerList> {
           Column(
             children: [
               Container(
-                padding: EdgeInsets.only(left: 20, top: 40),
+                padding: EdgeInsets.only(left: 20, top: 60),
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Patrocinadores',
@@ -87,7 +89,7 @@ class _PartnerListState extends State<PartnerList> {
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w400,
                           decoration: TextDecoration.none
                         ),
                     ),
@@ -119,6 +121,7 @@ class _PartnerListState extends State<PartnerList> {
                   //     ? Icons.chevron_left
                   //     : Icons.chevron_right,
                   //   color: MainTheme.mainColor,),
+                  initiallyExpanded: partner.isExpanded,
                   onExpansionChanged: (value) {
                     setState(() {
                       partner.isExpanded = value;

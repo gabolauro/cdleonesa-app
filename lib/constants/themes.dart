@@ -22,11 +22,11 @@ class MainTheme {
     700: mainColor,
   };
 
-  static MaterialColor _colorCustom = MaterialColor(mainColor.value, _colors);
+  static MaterialColor materialColorCustom = MaterialColor(mainColor.value, _colors);
 
   static ThemeData theme() {
     return ThemeData(
-        primarySwatch: _colorCustom,
+        primarySwatch: materialColorCustom,
         primaryColor: mainColor,
         primaryColorDark: mainColor,
         // primaryColorLight: Color(mainColorLight),

@@ -70,7 +70,7 @@ class _MainFrameState extends State<MainFrame> {
       ),
       body: this.widget.body,
      bottomNavigationBar: Container(
-      height: 70,
+      height: 60,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -135,10 +135,10 @@ class _MainFrameState extends State<MainFrame> {
                 SvgPicture.asset(
                   svgAsset,
                   color: Colors.white,
-                  height: 22,
+                  height: 18,
                   allowDrawingOutsideViewBox: true,
                 ),
-                Text(title, style: TextStyle(color: Colors.white),)
+                Text(title, style: TextStyle(color: Colors.white, fontSize: 12),)
               ],
             ),
           ),

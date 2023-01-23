@@ -1,5 +1,8 @@
+import 'package:cd_leonesa_app/constants/themes.dart';
+import 'package:cd_leonesa_app/services/news_service.dart';
 import 'package:cd_leonesa_app/ui_components/gradient_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class LoadingPage extends StatefulWidget {
@@ -11,6 +14,7 @@ class LoadingPage extends StatefulWidget {
 class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin {
 
   bool startAnimation = false;
+  int loadingProcess = 0;
   late AnimationController controller;
 
   void initState() {
@@ -18,13 +22,11 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
     controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
-    )..addListener(() {
-        setState(() {});
-      });
-    controller.repeat(reverse: false, max: 1);
+    );
 
     WidgetsBinding.instance
-        .addPostFrameCallback((_) {
+        .addPostFrameCallback((_) async {
+
           setState(() {
             startAnimation = true;
           });
@@ -42,13 +44,25 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
 
-    WidgetsBinding.instance
+
+    final newsService = Provider.of<NewsService>(context);
+    final gamesService = Provider.of<NewsService>(context);
+    final playersService = Provider.of<NewsService>(context);
+
+    if (
+      newsService.isloading &&
+      gamesService.isloading &&
+      playersService.isloading
+    ) {
+      loadingProcess++;
+    } else {
+      loadingProcess = 10;
+          WidgetsBinding.instance
         .addPostFrameCallback((_) {
-          if (controller.value > 0.9) {
-            // controller.dispose();
             Navigator.pushNamed(context, 'home');
-          }
         });
+
+    }
 
     return Stack(
       alignment: AlignmentDirectional.center,
@@ -209,7 +223,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
                 backgroundColor: Colors.white,
                 color: Color(0xFF910E1E),
                 minHeight: 8,
-                value: controller.value,
+                value: loadingProcess / 10,
               ),
             ),
           ),

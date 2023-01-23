@@ -1,10 +1,13 @@
 import 'package:cd_leonesa_app/constants/themes.dart';
+import 'package:cd_leonesa_app/models/game_model.dart';
+import 'package:cd_leonesa_app/services/game_service.dart';
 import 'package:cd_leonesa_app/ui_components/main_frame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 
@@ -81,6 +84,9 @@ class _CalendarGridPageState extends State<CalendarGridPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final gameService = Provider.of<GameService>(context);
+
     return MainFrame(
       background: Colors.white,
       body: Column(
@@ -183,9 +189,13 @@ class _CalendarGridPageState extends State<CalendarGridPage> {
                           bottom: 0,
                           left: 0,
                           child: Container(
-                            child: Image.network(
-                              appointment.notes.toString()
-                            ),
+                            child: 
+                            appointment.notes != null
+                              ? Image.network(
+                                appointment.notes.toString()
+                              )
+                              : Icon(Icons.shield, size: 20, color: Colors.black26,),
+                            
                           )
                         ),
                       ],
@@ -211,7 +221,7 @@ class _CalendarGridPageState extends State<CalendarGridPage> {
                 );
               },
               onViewChanged: viewChanged,
-              dataSource: _getCalendarDataSource(),
+              dataSource: _getCalendarDataSource(context, gameService.allGames),
               showDatePickerButton: true,
               monthViewSettings: MonthViewSettings(
                 showTrailingAndLeadingDates: false,
@@ -236,35 +246,30 @@ class _CalendarGridPageState extends State<CalendarGridPage> {
   }
 }
 
-_AppointmentDataSource _getCalendarDataSource() {
+_AppointmentDataSource _getCalendarDataSource(
+  BuildContext context,
+  List<Game> gameList
+) {
   List<Appointment> appointments = <Appointment>[];
-  appointments.add(Appointment(
-    startTime: DateTime.now(),
-    endTime: DateTime.now().add(Duration(minutes: 10)),
-    subject: 'Meeting',
-    notes: 'https://cydleonesa.com/wp-content/uploads/2023/01/adceuta-logo.png',
-    color: Colors.blue,
-    startTimeZone: '',
-    endTimeZone: '',
-  ));
-  appointments.add(Appointment(
-    startTime: DateTime.parse('2023-01-07 16:15:00'),
-    endTime: DateTime.parse('2023-01-07 16:15:00').add(Duration(minutes: 90)),
-    subject: 'Meeting',
-    notes: 'https://cydleonesa.com/wp-content/uploads/2023/01/merida_logo.png',
-    color: Colors.amber,
-    startTimeZone: '',
-    endTimeZone: '',
-  ));
-  appointments.add(Appointment(
-    startTime: DateTime.parse('2023-01-21 16:15:00'),
-    endTime: DateTime.parse('2023-01-07 16:15:00').add(Duration(minutes: 90)),
-    subject: 'Meeting',
-    notes: 'https://cydleonesa.com/wp-content/uploads/2023/01/adceuta-logo.png',
-    color: Colors.green,
-    startTimeZone: '',
-    endTimeZone: '',
-  ));
+  gameList.forEach((game) {
+    appointments.add(Appointment(
+      startTime: game.fecha!,
+      endTime: game.fecha!.add(Duration(minutes: 90)),
+      subject: 'Cultural VS ${game.equipoContrario}',
+      notes: game.resourceMedia,
+      color: MainTheme.mainColor,
+    ));
+  });
+
+  // appointments.add(Appointment(
+  //   startTime: DateTime.parse('2023-01-21 16:15:00'),
+  //   endTime: DateTime.parse('2023-01-07 16:15:00').add(Duration(minutes: 90)),
+  //   subject: 'Meeting',
+  //   notes: 'https://cydleonesa.com/wp-content/uploads/2023/01/adceuta-logo.png',
+  //   color: Colors.green,
+  //   startTimeZone: '',
+  //   endTimeZone: '',
+  // ));
 
   return _AppointmentDataSource(appointments);
 }

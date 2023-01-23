@@ -54,14 +54,14 @@ class NewsBanner extends StatelessWidget {
                 widthFactor: 10,
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 30,left: 30, right: 5),
+                  margin: EdgeInsets.only(bottom: 30,left: 30, right: 10),
                   child: 
                   Text(
                     this.title,
                     maxLines: 9,
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
                       color: Colors.white
                     ),
                   ),
