@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "806781852992",
+    "project_id": "cdleonesa-ff6a7",
+    "storage_bucket": "cdleonesa-ff6a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806781852992:android:2dcd62ec0dd1c83ac12ea5",
+        "android_client_info": {
+          "package_name": "com.example.cd_leonesa_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806781852992-kp1n8nn9623db9skc213n4hh2gdghlfs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDONh0E5XMCObjlOduAbXVF-UkepamYM08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806781852992-kp1n8nn9623db9skc213n4hh2gdghlfs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "806781852992-ipfc5smtsinkldlrmcolor9p749a0emf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cdLeonesaApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806781852992:android:59c26c528f95e58ac12ea5",
+        "android_client_info": {
+          "package_name": "com.gabolaurito.cd_leonesa_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806781852992-k7sbamt942bm0atnmoejr0pn8cg1ualt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gabolaurito.cd_leonesa_app",
+            "certificate_hash": "e1ed179b8bb03447ce2a19a47e2b515d432e8c08"
+          }
+        },
+        {
+          "client_id": "806781852992-kp1n8nn9623db9skc213n4hh2gdghlfs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDONh0E5XMCObjlOduAbXVF-UkepamYM08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806781852992-kp1n8nn9623db9skc213n4hh2gdghlfs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "806781852992-ipfc5smtsinkldlrmcolor9p749a0emf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cdLeonesaApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

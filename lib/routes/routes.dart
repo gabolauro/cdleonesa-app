@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 
 
 final Map<String, Widget Function (BuildContext)> appRoutes = {
-  'loading' : (_) => LoadingPage(),
+  'loading' : (_) => LoadingPage(loadingProcess: 0,),
   'home' : (_) => HomePage(),
   'news' : (_) {
     MainFrame.currentIndex = 0;

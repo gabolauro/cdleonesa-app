@@ -6,6 +6,10 @@ import 'package:provider/provider.dart';
 
 
 class LoadingPage extends StatefulWidget {
+  final int loadingProcess;
+
+  const LoadingPage({super.key, required this.loadingProcess});
+
 
   @override
   State<LoadingPage> createState() => _LoadingPageState();
@@ -14,7 +18,7 @@ class LoadingPage extends StatefulWidget {
 class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin {
 
   bool startAnimation = false;
-  int loadingProcess = 0;
+  // int loadingProcess = 0;
   late AnimationController controller;
 
   void initState() {
@@ -44,25 +48,6 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
 
-
-    final newsService = Provider.of<NewsService>(context);
-    final gamesService = Provider.of<NewsService>(context);
-    final playersService = Provider.of<NewsService>(context);
-
-    if (
-      newsService.isloading &&
-      gamesService.isloading &&
-      playersService.isloading
-    ) {
-      loadingProcess++;
-    } else {
-      loadingProcess = 10;
-          WidgetsBinding.instance
-        .addPostFrameCallback((_) {
-            Navigator.pushNamed(context, 'home');
-        });
-
-    }
 
     return Stack(
       alignment: AlignmentDirectional.center,
@@ -223,7 +208,7 @@ class _LoadingPageState extends State<LoadingPage> with TickerProviderStateMixin
                 backgroundColor: Colors.white,
                 color: Color(0xFF910E1E),
                 minHeight: 8,
-                value: loadingProcess / 10,
+                value: widget.loadingProcess / 10,
               ),
             ),
           ),

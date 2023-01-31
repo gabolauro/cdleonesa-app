@@ -176,7 +176,7 @@ class EventCard extends StatelessWidget {
                               ),
                             children: [
                                 TextSpan(
-                                  text: DateFormat(' D MMMM', 'es').format(game.fecha!).toUpperCase(),
+                                  text: DateFormat(' dd MMMM', 'es').format(game.fecha!).toUpperCase(),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                   ),

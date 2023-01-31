@@ -36,6 +36,7 @@ class Player {
 
     factory Player.fromJson(Map<String, dynamic> json) => Player(
         id: json['id'],
+        numberId: json['acf']['numero'],
         name: json['title']["rendered"],
         featuredMedia: json['featured_media'],
         demarcacion: json['demarcacion'][0] is int

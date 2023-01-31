@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class CalendarListPage extends StatefulWidget {
@@ -257,7 +258,7 @@ class EventCard extends StatelessWidget {
                         ),
                       children: [
                           TextSpan(
-                            text: DateFormat(' D MMMM', 'es').format(game.fecha!).toUpperCase(),
+                            text: DateFormat(' dd MMMM', 'es').format(game.fecha!).toUpperCase(),
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                             ),
@@ -293,7 +294,7 @@ class EventCard extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'JORNADA 18',
+                    'JORNADA ${game.jornada}',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.black87,
@@ -363,7 +364,7 @@ class EventCard extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: MainTheme.mainColor,
+              color: game.isTicketSale ? MainTheme.mainColor : Colors.white,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(2),
                 bottomRight: Radius.circular(2)
@@ -371,9 +372,11 @@ class EventCard extends StatelessWidget {
             ),
             child: ConstrainedBox(
               constraints: BoxConstraints(minWidth: double.infinity),
-              child: MaterialButton(
+              child: game.isTicketSale 
+              ? MaterialButton(
                 onPressed: () {
-                  
+                  Uri _url = Uri.parse('https://cydleonesa.acyti.com/');
+                  _launchUrl(_url);
                 },
                 child: Center(
                   child: Text(
@@ -385,12 +388,19 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
+              )
+              : Container(),
             ),
           ),
         ],
       ),
     );
+  }
+
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw 'Could not launch $url';
+    }
   }
 
   Expanded _otherTeam() {

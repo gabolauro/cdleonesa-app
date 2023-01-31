@@ -128,7 +128,7 @@ class _TeamPageState extends State<TeamPage> {
                           SvgPicture.asset(
                             'assets/images/arrow_right.svg',
                             color: Colors.black38,
-                            height: 20,
+                            height: MediaQuery.of(context).size.height *0.02,
                             allowDrawingOutsideViewBox: true,
                           ),
                           Container(
@@ -139,9 +139,9 @@ class _TeamPageState extends State<TeamPage> {
                           )
                         ],
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: MediaQuery.of(context).size.height *0.01,),
                       Container(
-                        height: 20,
+                        height: MediaQuery.of(context).size.height *0.03,
                         width: double.infinity,
                         child: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
@@ -160,7 +160,7 @@ class _TeamPageState extends State<TeamPage> {
                                   color: index+1 <= Preferences.attack
                                     ? MainTheme.mainColor
                                     : Colors.black12,
-                                  height: 20,
+                                  height: MediaQuery.of(context).size.height *0.03,
                                   allowDrawingOutsideViewBox: true,
                                 ),
                               ),
@@ -174,7 +174,7 @@ class _TeamPageState extends State<TeamPage> {
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   width: 1,
-                  height: 80,
+                  height: MediaQuery.of(context).size.height *0.1,
                   color: Colors.black38,
                 ),
                 Expanded(
@@ -192,14 +192,14 @@ class _TeamPageState extends State<TeamPage> {
                           SvgPicture.asset(
                             'assets/images/arrow_left.svg',
                             color: Colors.black38,
-                            height: 20,
+                            height: MediaQuery.of(context).size.height *0.02,
                             allowDrawingOutsideViewBox: true,
                           )
                         ],
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: MediaQuery.of(context).size.height *0.01,),
                       Container(
-                        height: 20,
+                        height: MediaQuery.of(context).size.height *0.03,
                         width: double.infinity,
                         child: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
@@ -218,7 +218,7 @@ class _TeamPageState extends State<TeamPage> {
                                   color: index+1 <= Preferences.fence
                                     ? MainTheme.mainColor
                                     : Colors.black12,
-                                  height: 20,
+                                  height: MediaQuery.of(context).size.height *0.03,
                                   allowDrawingOutsideViewBox: true,
                                 ),
                               ),
@@ -255,7 +255,7 @@ class _TeamPageState extends State<TeamPage> {
                   color: active 
                     ? MainTheme.mainColor
                     : Colors.black26,
-                  height: 28,
+                  height: MediaQuery.of(context).size.height *0.03,
                   allowDrawingOutsideViewBox: true,
                 ),
                 Container(
@@ -296,13 +296,10 @@ class _PlayerSliderState extends State<PlayerSlider> {
 
     List<PlayerCard> _buildNextGames() {
       List<PlayerCard> list = [];
-      var numberId = 1;
       playerService.allPlayers.forEach((player) {
-        player.numberId = numberId;
         list.add(
           PlayerCard(player: player,)
         );
-        numberId++;
       });
       return list;
     }
@@ -414,6 +411,7 @@ class PlayerCard extends StatelessWidget {
                         child: Column(
                           children: [
                             RichText(
+                              maxLines: 2,
                               text: TextSpan(
                                 text: player.name!.toUpperCase(),
                                 style: TextStyle(

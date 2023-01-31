@@ -46,7 +46,7 @@ class LastGame extends StatelessWidget {
               children: [
                 Text('Fin', style: TextStyle(fontWeight: FontWeight.w600),),
                 Text(
-                  DateFormat('D/M', 'es').format(game.fecha!),
+                  DateFormat('dd/M', 'es').format(game.fecha!),
                   style: TextStyle(fontWeight: FontWeight.w300),)
               ],
             ),
@@ -76,13 +76,19 @@ class LastGame extends StatelessWidget {
             child: Text(game.equipoContrario ?? '', style: TextStyle(fontWeight: FontWeight.w300),),
           )
         ),
-        Text(
-          game.resultado!.length == 2
-            ? !game.local!
-              ? game.resultado![0]
-              : game.resultado![1]
-            : '-'
-          , style: TextStyle(fontWeight: FontWeight.w300),),
+        Container(
+          width: 20,
+          alignment: Alignment.center,
+          child: Text(
+            game.resultado!.length == 2
+              ? !game.local!
+                ? game.resultado![0]
+                : game.resultado![1]
+              : '-'
+            , style: TextStyle(fontWeight: FontWeight.w300),
+            textAlign: TextAlign.center,
+            ),
+        ),
       ],
     );
   }
@@ -102,13 +108,19 @@ class LastGame extends StatelessWidget {
             child: Text('Cultural Leonesa', style: TextStyle(fontWeight: FontWeight.w600),),
           )
         ),
-        Text(
-          game.resultado!.length == 2
-            ? game.local!
-              ? game.resultado![0]
-              : game.resultado![1]
-            : '-'
-          , style: TextStyle(fontWeight: FontWeight.w600),),
+        Container(
+          width: 20,
+          alignment: Alignment.center,
+          child: Text(
+            game.resultado!.length == 2
+              ? game.local!
+                ? game.resultado![0]
+                : game.resultado![1]
+              : '-'
+            , style: TextStyle(fontWeight: FontWeight.w600),
+            textAlign: TextAlign.center,  
+          ),
+        ),
       ],
     );
   }

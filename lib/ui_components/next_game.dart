@@ -96,7 +96,7 @@ class NextGame extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      DateFormat('EEEE D MMMM HH:mm', 'es').format(game.fecha!),
+                      DateFormat('EEEE dd MMMM HH:mm', 'es').format(game.fecha!),
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.white,

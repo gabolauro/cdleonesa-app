@@ -1,8 +1,10 @@
 import 'package:cd_leonesa_app/routes/routes.dart';
 import 'package:cd_leonesa_app/services/game_service.dart';
 import 'package:cd_leonesa_app/services/news_service.dart';
+import 'package:cd_leonesa_app/services/partenrs_service.dart';
 import 'package:cd_leonesa_app/services/player_service.dart';
 import 'package:cd_leonesa_app/services/preferences.dart';
+import 'package:cd_leonesa_app/services/push_notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -14,15 +16,46 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
+  await PushNotificationService.initializeApp();
+
   await Preferences.init();
 
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+  final GlobalKey<ScaffoldMessengerState> messengerKey = new GlobalKey<ScaffoldMessengerState>();
+
+  @override
+  void initState() {
+    super.initState();
+    
+    // Context
+    PushNotificationService.messageStream.listen((data) {
+      // print('MyApp: $data');
+      // navigatorKey.currentState?.pushNamed('team');
+      Function()? snackBarAction = null;
+      if (data['forceRedirect'] && data.containsKey('page')) {
+        navigatorKey.currentState?.pushNamed(data['page'], arguments: int.parse(data['id']));
+      } else {
+        snackBarAction = () => navigatorKey.currentState?.pushNamed(data['page'], arguments: int.parse(data['id']));
+      }
+
+      final snackBar = MainTheme.message(context, data: data, action: snackBarAction);
+      if (!data['forceRedirect']) messengerKey.currentState?.showSnackBar(snackBar);
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -30,8 +63,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create:(_) => NewsService()),
         ChangeNotifierProvider(create:(_) => GameService()),
         ChangeNotifierProvider(create:(_) => PlayerService()),
+        ChangeNotifierProvider(create:(_) => PartnerService()),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
+        scaffoldMessengerKey: messengerKey,
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           SfGlobalLocalizations.delegate
@@ -42,7 +78,7 @@ class MyApp extends StatelessWidget {
         locale: const Locale('es'),
         debugShowCheckedModeBanner: false,
         title: 'C&D Leonesa App',
-        initialRoute: 'loading',
+        initialRoute: 'home',
         routes: appRoutes,
         theme: MainTheme.theme(),
       ),

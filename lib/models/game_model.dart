@@ -11,6 +11,7 @@ String gameToJson(Game? data) => json.encode(data!.toJson());
 class Game {
     Game({
         this.id,
+        this.jornada,
         this.fecha,
         this.equipoContrario,
         this.escudoEquipoContrario,
@@ -18,10 +19,11 @@ class Game {
         this.resultado,
         this.status,
         this.lugarDelParido,
-        this.local,
+        required this.local,
     });
 
     int? id;
+    int? jornada;
     DateTime? fecha;
     String? equipoContrario;
     int? escudoEquipoContrario;
@@ -29,10 +31,11 @@ class Game {
     List<String>? resultado;
     String? status;
     String? lugarDelParido;
-    bool? local;
+    bool local;
 
     factory Game.fromJson(Map<String, dynamic> json) => Game(
         id: json['id'],
+        jornada: json['acf']["jornada"],
         fecha: DateTime.parse(json['acf']["fecha"]),
         equipoContrario: json['acf']["equipo_contrario"],
         escudoEquipoContrario: json['acf']["escudo_equipo_contrario"] is int
@@ -46,6 +49,7 @@ class Game {
 
     Map<String, dynamic> toJson() => {
         "id": id,
+        "jornada": jornada,
         "fecha": fecha?.toIso8601String(),
         "equipo_contrario": equipoContrario,
         "escudo_equipo_contrario": escudoEquipoContrario,
@@ -65,5 +69,13 @@ class Game {
       } else {
         resourceMedia = null;
       }
+    }
+
+    bool get isTicketSale {
+      DateTime today = DateTime.now();
+      if (local) {
+          return fecha!.isAfter(today); 
+      }
+      return false;
     }
 }

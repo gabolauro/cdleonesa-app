@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MainTheme {
   static const Color mainColor = Color(0xFFD00713);
@@ -48,6 +49,64 @@ class MainTheme {
         iconTheme: const IconThemeData(color: Color(0xff434300)),
         );
   }
+
+  static SnackBar message(context, {required Map<String, dynamic> data, void Function()? action}) =>
+    SnackBar(
+      duration: Duration(seconds: 15),
+      backgroundColor: Color(0xFFFFFFFF),
+      content: GestureDetector(
+        onTap: action,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 100,
+              alignment: Alignment.center,
+              child: Container(
+                width: 50,
+                height: 50,
+                child: SvgPicture.asset(
+                  'assets/images/logo_01.svg',
+                  color: mainColor,
+                  height: 50,
+                  allowDrawingOutsideViewBox: true,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                height: 100,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data['title'],
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: mainColor
+                      ),
+                    ),
+                    Text(
+                      data['body'],
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        color: mainColor
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            )
+          ],
+        ),
+      ),
+      behavior: SnackBarBehavior.floating,
+    );
 
 
 }

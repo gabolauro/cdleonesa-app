@@ -23,13 +23,14 @@ class NewsService with ChangeNotifier {
   loadAll() async {
     this.isloading = true;
     notifyListeners();
-    await this.getTopHeadlines();
-    await this.getTopCentury();
+    this.getTopHeadlines();
+    this.getTopCentury();
+    this.isloading = false;
+    notifyListeners();
     await this.getTopFutbol();
     await this.getTopFemaleFutbol();
     await this.getTopBasket();
-    this.isloading = false;
-    notifyListeners();
+    // notifyListeners();
 
   }
 
@@ -40,13 +41,16 @@ class NewsService with ChangeNotifier {
     final resp = await http.get(Uri.parse(url));
     final newsResponse = newsListFromJson(resp.body);
 
-    if (newsResponse != null)
-    for (var article in newsResponse) {
-      await article.getMedia();
+    if (newsResponse != null) {
+      for (var article in newsResponse) {
+        await article.getMedia();
+        this.headlines.add(article);
+        notifyListeners();
+      }
     }
 
-    this.headlines = newsResponse == null ? [] : newsResponse;
-    notifyListeners();
+    // this.headlines = newsResponse == null ? [] : newsResponse;
+    // notifyListeners();
   }
   Future<void> getTopCentury() async {
     
@@ -54,13 +58,16 @@ class NewsService with ChangeNotifier {
     final resp = await http.get(Uri.parse(url));
     final newsResponse = newsListFromJson(resp.body);
 
-    if (newsResponse != null)
-    for (var article in newsResponse) {
-      await article.getMedia();
+    if (newsResponse != null) {
+      for (var article in newsResponse) {
+        await article.getMedia();
+        this.centuryNewsList.add(article);
+        notifyListeners();
+      }
     }
 
-    this.centuryNewsList = newsResponse == null ? [] : newsResponse;
-    notifyListeners();
+    // this.centuryNewsList = newsResponse == null ? [] : newsResponse;
+    // notifyListeners();
   }
   Future<void> getTopFutbol() async {
     
