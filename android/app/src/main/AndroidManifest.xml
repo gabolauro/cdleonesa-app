@@ -1,6 +1,6 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gabolaurito.cd_leonesa_app"
+    package="com.talentosolutions.cdleonesaapp"
     >
    <uses-permission android:name="android.permission.INTERNET" />
    <application
@@ -34,8 +34,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id"/> -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id"/>
+            android:value="high_importance_channel" />
     </application>
 </manifest>

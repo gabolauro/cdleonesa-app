@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 import 'constants/themes.dart';
 
@@ -19,6 +20,8 @@ void main() async {
   await PushNotificationService.initializeApp();
 
   await Preferences.init();
+
+  tz.initializeTimeZones();
 
   runApp(const MyApp());
 }
@@ -40,20 +43,33 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     
     // Context
+    // PushNotificationService.messageStream.listen((data) {
+    //   print('MyApp: $data');
+    //   // navigatorKey.currentState?.pushNamed('team');
+    //   Function()? snackBarAction = null;
+    //   if (data['forceRedirect'] && data.containsKey('page')) {
+    //     navigatorKey.currentState?.pushNamed(data['page'], arguments: int.parse(data['id']));
+    //   } else {
+    //     snackBarAction = () => navigatorKey.currentState?.pushNamed(data['page'], arguments: int.parse(data['id']));
+    //   }
+
+    //   final snackBar = MainTheme.message(context, data: data, action: snackBarAction);
+    //   if (!data['forceRedirect']) messengerKey.currentState?.showSnackBar(snackBar);
+    // });
+
+    PushNotificationService.init();
+    listenNotifications();
+
+  }
+
+  void listenNotifications() {
     PushNotificationService.messageStream.listen((data) {
       // print('MyApp: $data');
-      // navigatorKey.currentState?.pushNamed('team');
-      Function()? snackBarAction = null;
-      if (data['forceRedirect'] && data.containsKey('page')) {
-        navigatorKey.currentState?.pushNamed(data['page'], arguments: int.parse(data['id']));
-      } else {
-        snackBarAction = () => navigatorKey.currentState?.pushNamed(data['page'], arguments: int.parse(data['id']));
+      if (data.containsKey('page')) {
+        Preferences.resetAllValues();
+        navigatorKey.currentState?.pushNamed(data['page']);
       }
-
-      final snackBar = MainTheme.message(context, data: data, action: snackBarAction);
-      if (!data['forceRedirect']) messengerKey.currentState?.showSnackBar(snackBar);
     });
-
   }
 
   @override

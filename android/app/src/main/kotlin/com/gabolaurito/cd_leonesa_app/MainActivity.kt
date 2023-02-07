@@ -1,4 +1,4 @@
-package com.gabolaurito.cd_leonesa_app
+package com.talentosolutions.cdleonesaapp
 
 import io.flutter.embedding.android.FlutterActivity
 

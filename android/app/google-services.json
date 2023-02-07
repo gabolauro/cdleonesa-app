@@ -45,7 +45,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:806781852992:android:59c26c528f95e58ac12ea5",
         "android_client_info": {
-          "package_name": "com.gabolaurito.cd_leonesa_app"
+          "package_name": "com.talentosolutions.cdleonesaapp"
         }
       },
       "oauth_client": [
@@ -53,7 +53,7 @@
           "client_id": "806781852992-k7sbamt942bm0atnmoejr0pn8cg1ualt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.gabolaurito.cd_leonesa_app",
+            "package_name": "com.talentosolutions.cdleonesaapp",
             "certificate_hash": "e1ed179b8bb03447ce2a19a47e2b515d432e8c08"
           }
         },

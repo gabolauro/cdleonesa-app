@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cd_leonesa_app/constants/themes.dart';
 import 'package:cd_leonesa_app/models/game_model.dart';
+import 'package:cd_leonesa_app/services/push_notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -37,6 +38,25 @@ class GameService with ChangeNotifier {
     this.isloading = false;
     notifyListeners();
     
+
+    scheduleGames();
+  }
+
+  Future<void> scheduleGames() async {
+
+    var nextGames = getNextGames();
+
+    for (var game in nextGames) {
+      await PushNotificationService.showScheduledNotification(
+        id: game.id ?? 0,
+        title: 'Finalizo el partido',
+        body: 'Califica el juego Cultural VS ${game.equipoContrario}',
+        payload: 'team',
+        scheduledDate: game.fecha!.add(Duration(hours: 2))
+      );
+    }
+
+
   }
 
   Game? getLastGame() {

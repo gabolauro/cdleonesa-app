@@ -1,4 +1,5 @@
 import 'package:cd_leonesa_app/constants/themes.dart';
+import 'package:cd_leonesa_app/services/push_notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -110,8 +111,23 @@ class _MainFrameState extends State<MainFrame> {
             svgAsset: 'assets/images/museum.svg',
             title: 'Museo',
             callback: () {
-              Uri _url = Uri.parse('https://estadio-virtual.cydleonesa.com/');
-              _launchUrl(_url);
+              // Uri _url = Uri.parse('https://estadio-virtual.cydleonesa.com/');
+              // _launchUrl(_url);
+
+              // PushNotificationService.showNotification(
+              //   title: 'Title',
+              //   body: 'Hey you have a new message',
+              //   payload: 'team'
+              // );
+
+              PushNotificationService.showScheduledNotification(
+                title: 'Title',
+                body: 'Hey you have a new message',
+                payload: 'team',
+                scheduledDate: DateTime.now().add(Duration(seconds: 12))
+              );
+
+
             }
           ),
         ],
@@ -179,59 +195,58 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
           ),
-          SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  color: Colors.white,
-                  height: 55,
-                  width: double.infinity,
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    padding: EdgeInsets.only(left: 20),
-                    margin: EdgeInsets.all(5),
-                    child: Image.asset(
-                      'assets/images/logo_01.png',
+          Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 20),
+                color: MainTheme.softGrey,
+                height: 75,
+                width: double.infinity,
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  padding: EdgeInsets.only(left: 20),
+                  margin: EdgeInsets.all(5),
+                  child: Image.asset(
+                    'assets/images/logo_01.png',
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    _itemOption(
+                      svgAsset: 'assets/images/send.svg',
+                      title: 'Patrocinadores',
+                      callback: () {
+                        Navigator.pushNamed(context, 'partners');
+                      }
                     ),
-                  ),
+                    _itemOption(
+                      svgAsset: 'assets/images/century.svg',
+                      title: 'Centenario',
+                      callback: () {
+                        Navigator.pushNamed(context, 'century');
+                      }
+                    ),
+                    _itemOption(
+                      svgAsset: 'assets/images/calendar.svg',
+                      title: 'Calendario',
+                      callback: () {
+                        Navigator.pushNamed(context, 'calendar');
+                      }
+                    ),
+                    _itemOption(
+                      svgAsset: 'assets/images/settings.svg',
+                      title: 'Ajustes',
+                      callback: () {
+                        Navigator.pushNamed(context, 'settings');
+                      }
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      _itemOption(
-                        svgAsset: 'assets/images/send.svg',
-                        title: 'Patrocinadores',
-                        callback: () {
-                          Navigator.pushNamed(context, 'partners');
-                        }
-                      ),
-                      _itemOption(
-                        svgAsset: 'assets/images/century.svg',
-                        title: 'Centenario',
-                        callback: () {
-                          Navigator.pushNamed(context, 'century');
-                        }
-                      ),
-                      _itemOption(
-                        svgAsset: 'assets/images/calendar.svg',
-                        title: 'Calendario',
-                        callback: () {
-                          Navigator.pushNamed(context, 'calendar');
-                        }
-                      ),
-                      _itemOption(
-                        svgAsset: 'assets/images/settings.svg',
-                        title: 'Ajustes',
-                        callback: () {
-                          Navigator.pushNamed(context, 'settings');
-                        }
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           )
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:cd_leonesa_app/services/player_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
@@ -43,6 +44,13 @@ class Preferences {
   static set fence( int fenceId ) {
     _fence = fenceId;
     _prefs.setInt('fence', fenceId );
+  }
+
+  static resetAllValues() {
+    _prefs.setString('place', '' );
+    _prefs.setInt('player', 0 );
+    _prefs.setInt('attack', 0 );
+    _prefs.setInt('fence', 0 );
   }
 
   // static bool get isDarkmode {
