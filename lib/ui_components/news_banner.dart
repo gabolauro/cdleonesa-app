@@ -19,6 +19,7 @@ class NewsBanner extends StatelessWidget {
       child: Stack(
         children: [
           Container(
+            height: double.infinity,
             width: double.infinity,
             child: this.image
           ),

@@ -43,6 +43,7 @@ class _CalendarListPageState extends State<CalendarListPage> {
     super.initState();
     
     _year = DateTime.now().year.toString();
+    _month = DateFormat('MM', 'es').format(DateTime.now()).toString();
   }
 
   List<Widget> _buildMonthList(BuildContext context) {
@@ -119,6 +120,12 @@ class _CalendarListPageState extends State<CalendarListPage> {
                               fontWeight: FontWeight.w800,
                             ),
                           ),
+                          TextSpan(
+                            text: '\n${GameService.section}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w200,
+                            ),
+                          ),
                       ],
                     ),
                   ),
@@ -182,7 +189,7 @@ class _CalendarListPageState extends State<CalendarListPage> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 16,
-                            color: MainTheme.mainColor,
+                            color: Colors.black26,
                             fontWeight: FontWeight.w200,
                             decoration: TextDecoration.none
                           ),

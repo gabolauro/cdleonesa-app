@@ -38,8 +38,8 @@ class MainTheme {
           systemOverlayStyle: SystemUiOverlayStyle(
             systemNavigationBarColor: Colors.white,
             statusBarColor: softGrey,
-            statusBarIconBrightness: Brightness.light,
-            statusBarBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark,
           )
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(

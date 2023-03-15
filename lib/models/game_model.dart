@@ -12,6 +12,9 @@ class Game {
     Game({
         this.id,
         this.jornada,
+        this.temporada,
+        this.competicion,
+        this.seccion,
         this.fecha,
         this.equipoContrario,
         this.escudoEquipoContrario,
@@ -24,6 +27,9 @@ class Game {
 
     int? id;
     int? jornada;
+    String? temporada;
+    String? competicion;
+    String? seccion;
     DateTime? fecha;
     String? equipoContrario;
     int? escudoEquipoContrario;
@@ -36,6 +42,9 @@ class Game {
     factory Game.fromJson(Map<String, dynamic> json) => Game(
         id: json['id'],
         jornada: json['acf']["jornada"],
+        temporada: json['acf']["temporada"],
+        competicion: json['acf']["competicion"],
+        seccion: json['acf']["seccion"] == '' ? 'Futbol' : json['acf']["seccion"],
         fecha: DateTime.parse(json['acf']["fecha"]),
         equipoContrario: json['acf']["equipo_contrario"],
         escudoEquipoContrario: json['acf']["escudo_equipo_contrario"] is int
@@ -50,6 +59,8 @@ class Game {
     Map<String, dynamic> toJson() => {
         "id": id,
         "jornada": jornada,
+        "temporada": temporada,
+        "competicion": competicion,
         "fecha": fecha?.toIso8601String(),
         "equipo_contrario": equipoContrario,
         "escudo_equipo_contrario": escudoEquipoContrario,
@@ -65,7 +76,11 @@ class Game {
         final String url = '${MainTheme.apiBaseUrl}/media/$escudoEquipoContrario';
         final resp = await http.get(Uri.parse(url));
         final mediaResponse = json.decode(resp.body);
-        resourceMedia = mediaResponse['media_details']['sizes']['full']['source_url'].toString();
+        if (resp.statusCode == 200) {
+          resourceMedia = mediaResponse['media_details']['sizes']['full']['source_url'].toString();
+        } else {
+          resourceMedia = MainTheme.noPhoto;
+        }
       } else {
         resourceMedia = null;
       }

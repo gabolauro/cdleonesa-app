@@ -17,20 +17,10 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
-  late PageController controller;
-  late int _currentPage;
 
   @override
   void initState() {
     super.initState();
-    controller = PageController(initialPage: 0);
-
-    _currentPage = 0;
-    controller.addListener(() {
-      setState(() {
-        _currentPage = controller.page!.ceil().toInt();
-      });
-    });
 
   }
 
@@ -38,177 +28,71 @@ class _NewsPageState extends State<NewsPage> {
   Widget build(BuildContext context) {
 
     final newsServide = Provider.of<NewsService>(context);
+    final section = ModalRoute.of(context)!.settings.arguments as String;
+    List newsList() {
+      if (section=='Fútbol') {
+        return newsServide.futbolNewsList;
+      } else if (section=='Fútbol Femenino') {
+        return newsServide.femaleFutbolNewsList;
+      } else if (section=='Baloncesto') {
+        return newsServide.basketNewsList;
+      }
+      return [];
+    };
 
     return MainFrame(
       background: Colors.white,
       body: Column(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(vertical: 0),
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.black87,
-                  width: 0.5,
-                ),
-              )
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: _currentPage == 0 ? MainTheme.mainColor : Colors.transparent,
-                        width: _currentPage == 0 ? 3 : 0,
-                      ),
-                    )
+          Padding(
+            padding: const EdgeInsets.all(40),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: 'Noticias',
+                style: TextStyle(
+                    fontSize: 28,
+                    color: MainTheme.mainColor,
+                    fontWeight: FontWeight.w800,
+                    decoration: TextDecoration.none
                   ),
-                  child: TextButton(
-                    onPressed:() {
-                      controller.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.easeOut);
-                    },
-                    child: Text(
-                      'Futbol',
+                children: [
+                    TextSpan(
+                      text: section,
                       style: TextStyle(
-                        color: Colors.black87,
-                        fontWeight: _currentPage == 0
-                          ? FontWeight.w800
-                          : FontWeight.w400
+                        fontWeight: FontWeight.w200,
                       ),
-                    )
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: _currentPage == 1 ? MainTheme.mainColor : Colors.transparent,
-                        width: _currentPage == 1 ? 3 : 0,
-                      ),
-                    )
-                  ),
-                  child: TextButton(
-                    onPressed:() {
-                      controller.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.easeOut);
-                    },
-                    child: Text(
-                      'Futbol Femenino',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontWeight: _currentPage == 1
-                          ? FontWeight.w800
-                          : FontWeight.w400
-                      ),
-                    )),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: _currentPage == 2 ? MainTheme.mainColor : Colors.transparent,
-                        width: _currentPage == 2 ? 3 : 0,
-                      ),
-                    )
-                  ),
-                  child: TextButton(
-                    onPressed:() {
-                      controller.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.easeOut);
-                    },
-                    child: Text(
-                      'Baloncesto',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontWeight: _currentPage == 2
-                          ? FontWeight.w800
-                          : FontWeight.w400
-                      ),
-                    )),
-                ),
-              ],
+                    ),
+                ],
+              ),
             ),
           ),
 
-          SizedBox(height: 10,),
+          // SizedBox(height: 10,),
 
           Expanded(
-            child: PageView(
-              controller: controller,
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: newsServide.futbolNewsList.length,
-                  itemBuilder:(_, i) {
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: newsList().length,
+              itemBuilder:(_, i) {
 
-                    News article = newsServide.futbolNewsList[i];
+                News article = newsList()[i];
 
-                    return ConstrainedBox(
-                      constraints: BoxConstraints(maxHeight: 300),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: NewsBanner(
-                          id: article.id,
-                          image: Image.network(
-                            article.resourceMedia ?? MainTheme.noPhoto,
-                            fit: BoxFit.cover,
-                          ),
-                          title: article.title ?? '',
-                        ),
+                return ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: 250),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: NewsBanner(
+                      id: article.id,
+                      image: Image.network(
+                        article.resourceMedia ?? MainTheme.noPhoto,
+                        fit: BoxFit.cover,
                       ),
-                    );
-                  },
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: newsServide.femaleFutbolNewsList.length,
-                  itemBuilder:(_, i) {
-
-                    News article = newsServide.femaleFutbolNewsList[i];
-
-                    return ConstrainedBox(
-                      constraints: BoxConstraints(maxHeight: 300),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: NewsBanner(
-                          id: article.id,
-                          image: Image.network(
-                            article.resourceMedia ?? MainTheme.noPhoto,
-                            fit: BoxFit.cover,
-                          ),
-                          title: article.title ?? '',
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: newsServide.basketNewsList.length,
-                  itemBuilder:(_, i) {
-
-                    News article = newsServide.basketNewsList[i];
-
-                    return ConstrainedBox(
-                      constraints: BoxConstraints(maxHeight: 300),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: NewsBanner(
-                          id: article.id,
-                          image: Image.network(
-                            article.resourceMedia ?? MainTheme.noPhoto,
-                            fit: BoxFit.cover,
-                          ),
-                          title: article.title ?? '',
-                        ),
-                      ),
-                    );
-                  },
-                ),
-
-              ],
+                      title: article.title ?? '',
+                    ),
+                  ),
+                );
+              },
             ),
           ),
 

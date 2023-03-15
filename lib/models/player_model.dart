@@ -58,7 +58,11 @@ class Player {
         final String url = '${MainTheme.apiBaseUrl}/media/$featuredMedia';
         final resp = await http.get(Uri.parse(url));
         final mediaResponse = json.decode(resp.body);
-        resourceMedia = mediaResponse['media_details']['sizes']['full']['source_url'].toString();
+        if (resp.statusCode == 200) {
+          resourceMedia = mediaResponse['media_details']['sizes']['full']['source_url'].toString();
+        } else {
+          resourceMedia = MainTheme.noPhoto;
+        }
       } else {
         resourceMedia = null;
       }

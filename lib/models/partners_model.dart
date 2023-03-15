@@ -71,7 +71,11 @@ class Partner {
         final String url = '${MainTheme.apiBaseUrl}/media/$image';
         final resp = await http.get(Uri.parse(url));
         final mediaResponse = json.decode(resp.body);
-        resourceMedia = mediaResponse['media_details']['sizes']['medium']['source_url'].toString();
+        if (resp.statusCode == 200) {
+          resourceMedia = mediaResponse['media_details']['sizes']['medium']['source_url'].toString();
+        } else {
+          resourceMedia = MainTheme.noPhoto;
+        }
       } else {
         resourceMedia = null;
       }

@@ -5,7 +5,9 @@ import 'package:cd_leonesa_app/services/partenrs_service.dart';
 import 'package:cd_leonesa_app/services/player_service.dart';
 import 'package:cd_leonesa_app/services/preferences.dart';
 import 'package:cd_leonesa_app/services/push_notifications_service.dart';
+import 'package:cd_leonesa_app/services/store_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
@@ -57,17 +59,19 @@ class _MyAppState extends State<MyApp> {
     //   if (!data['forceRedirect']) messengerKey.currentState?.showSnackBar(snackBar);
     // });
 
-    PushNotificationService.init();
+    // PushNotificationService.init();
     listenNotifications();
 
   }
 
   void listenNotifications() {
     PushNotificationService.messageStream.listen((data) {
-      // print('MyApp: $data');
+      print('MyApp: $data');
+      var forceRedirect = data['forceRedirect'] ?? true;
       if (data.containsKey('page')) {
-        Preferences.resetAllValues();
-        navigatorKey.currentState?.pushNamed(data['page']);
+        PushNotificationService.initialPayload = data;
+        // Preferences.resetAllValues();
+        navigatorKey.currentState?.pushNamed(data['page'], arguments: int.parse(data['id']));
       }
     });
   }
@@ -80,6 +84,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create:(_) => GameService()),
         ChangeNotifierProvider(create:(_) => PlayerService()),
         ChangeNotifierProvider(create:(_) => PartnerService()),
+        ChangeNotifierProvider(create:(_) => StoreService()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,

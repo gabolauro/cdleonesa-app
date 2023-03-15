@@ -47,6 +47,7 @@ class NewsSlider extends StatelessWidget {
         ..._buildBanners()
       ],
       options: CarouselOptions(
+          height: 300,
           initialPage: 0,
           enableInfiniteScroll: true,
           reverse: false,

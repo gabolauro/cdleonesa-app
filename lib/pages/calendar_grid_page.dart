@@ -112,6 +112,12 @@ class _CalendarGridPageState extends State<CalendarGridPage> {
                               fontWeight: FontWeight.w800,
                             ),
                           ),
+                          TextSpan(
+                            text: '\n${GameService.section}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w200,
+                            ),
+                          ),
                       ],
                     ),
                   ),
@@ -221,7 +227,7 @@ class _CalendarGridPageState extends State<CalendarGridPage> {
                 );
               },
               onViewChanged: viewChanged,
-              dataSource: _getCalendarDataSource(context, gameService.allGames),
+              dataSource: _getCalendarDataSource(context, gameService.allGamesFilterBySection()),
               showDatePickerButton: true,
               monthViewSettings: MonthViewSettings(
                 showTrailingAndLeadingDates: false,

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:cd_leonesa_app/constants/themes.dart';
 import 'package:http/http.dart' as http;
 
@@ -72,11 +73,24 @@ class News {
       return content;
     }
 
+    static Map<int, String> categoriesMap = {
+      0: 'General',
+      187: 'Portada',
+      188: 'Centenario',
+      189: 'Fútbol',
+      190: 'Fútbol Femenino',
+      191: 'Baloncesto',
+    };
+
     getMedia() async {
       final String url = '${MainTheme.apiBaseUrl}/media/$featuredMedia';
       final resp = await http.get(Uri.parse(url));
       final mediaResponse = json.decode(resp.body);
-      resourceMedia = mediaResponse['media_details']['sizes']['medium']['source_url'].toString();
+      if (resp.statusCode == 200) {
+        resourceMedia = mediaResponse['media_details']['sizes']['medium']['source_url'].toString();
+      } else {
+        resourceMedia = MainTheme.noPhoto;
+      }
     }
 
 }

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cd_leonesa_app/constants/themes.dart';
 import 'package:cd_leonesa_app/models/game_model.dart';
+import 'package:cd_leonesa_app/services/game_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -15,117 +16,123 @@ class NextGame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      color: MainTheme.mainColor,
-      margin: EdgeInsets.symmetric(vertical: 20),
-      height: 250,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 50,
-            left: -MediaQuery.of(context).size.width * 0.2,
-            child: ClipOval(
-              child: Container(
-                height: MediaQuery.of(context).size.width,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    stops: [
-                      0,
-                      0.4
-                    ],
-                    colors: [
-                      Color(0x66000000),
-                      Colors.transparent
-                    ]
-                  )
+    return GestureDetector(
+      onTap: () {
+        GameService.section = 'Futbol';
+        Navigator.pushNamed(context, 'calendar', arguments: 'Fútbol');
+      },
+      child: Container(
+        color: MainTheme.mainColor,
+        margin: EdgeInsets.symmetric(vertical: 20),
+        height: 250,
+        child: Stack(
+          children: [
+            Positioned(
+              top: 50,
+              left: -MediaQuery.of(context).size.width * 0.2,
+              child: ClipOval(
+                child: Container(
+                  height: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      stops: [
+                        0,
+                        0.4
+                      ],
+                      colors: [
+                        Color(0x66000000),
+                        Colors.transparent
+                      ]
+                    )
+                  ),
                 ),
               ),
             ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                RichText(
-                  text: const TextSpan(
-                    text: 'Próximo',
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        decoration: TextDecoration.none
-                      ),
-                    children: [
-                        TextSpan(
-                          text: 'partido',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
-                          ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  RichText(
+                    text: const TextSpan(
+                      text: 'Próximo',
+                      style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          decoration: TextDecoration.none
                         ),
+                      children: [
+                          TextSpan(
+                            text: 'partido',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Spacer(),
+                      game.local!
+                        ? _theTeam()
+                        : _otherTeam(),
+                      Text(
+                        'VS',
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 80,
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.none,
+                          color: MainTheme.mainColor,
+                          letterSpacing: -5
+                        ),
+                      ),
+                      game.local!
+                        ? _otherTeam()
+                        : _theTeam(),
+                      Spacer(),
                     ],
                   ),
-                ),
-                Row(
-                  children: [
-                    Spacer(),
-                    game.local!
-                      ? _theTeam()
-                      : _otherTeam(),
-                    Text(
-                      'VS',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 80,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.none,
-                        color: MainTheme.mainColor,
-                        letterSpacing: -5
+                  Column(
+                    children: [
+                      Text(
+                        DateFormat('EEEE dd MMMM HH:mm', 'es').format(game.fecha!),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          decoration: TextDecoration.none
+                        ),
                       ),
-                    ),
-                    game.local!
-                      ? _otherTeam()
-                      : _theTeam(),
-                    Spacer(),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      DateFormat('EEEE dd MMMM HH:mm', 'es').format(game.fecha!),
-                      style: TextStyle(
-                        fontSize: 14,
+                      Text(
+                        game.lugarDelParido!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.none
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
                         color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        decoration: TextDecoration.none
-                      ),
-                    ),
-                    Text(
-                      game.lugarDelParido!,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.none
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      color: Colors.white,
-                      width: 60,
-                      height: 1,
-                    )
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
-      )
+                        width: 60,
+                        height: 1,
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        )
+      ),
     );
   }
 

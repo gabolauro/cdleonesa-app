@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cd_leonesa_app/constants/themes.dart';
 import 'package:cd_leonesa_app/models/news_model.dart';
 import 'package:cd_leonesa_app/services/news_service.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:styled_text/styled_text.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 
 class SingleNewsPage extends StatelessWidget {
@@ -31,9 +34,36 @@ class SingleNewsPage extends StatelessWidget {
       background: Colors.white,
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.all(30),
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: article.categories?.length,
+                itemBuilder: (context, i) {
+
+                  int catIndex = article.categories![i] ?? 0;
+
+                  return Container(
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    // margin: EdgeInsets.all(20),
+                    child: Text(
+                      (News.categoriesMap[catIndex] ?? 'General').toUpperCase(),
+                      style: TextStyle(
+                        color: MainTheme.mainColor,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            
+            Container(
+              padding: EdgeInsets.only(left:30, bottom: 30, right: 30),
               width: double.infinity,
               child: Text(
                 article.title ?? '',
@@ -60,12 +90,46 @@ class SingleNewsPage extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: paragraphs.length,
                 itemBuilder:(_, i) {
+
+                  String src = '';
+                  YoutubePlayerController _controller = YoutubePlayerController();
+
+                  if (paragraphs[i].contains('<img')) {
+                    List<String> splitted = paragraphs[i].split(" ");
+                    src = splitted.firstWhere((element) => element.contains('src'));
+                    List<String> srcSplitted = src.split("\"");
+                    src = srcSplitted[1];
+                  }
+                  
+                  if (paragraphs[i].contains('<iframe')) {
+                    print(paragraphs[i]);
+                    List<String> splitted = paragraphs[i].split(" ");
+                    src = splitted.firstWhere((element) => element.contains('src'));
+                    List<String> srcSplitted = src.split("\"");
+                    src = srcSplitted[1];
+                    String videoId = YoutubePlayerController.convertUrlToId(src) ?? '';
+                    print(videoId);
+
+                    _controller = YoutubePlayerController.fromVideoId(
+                      videoId: videoId,
+                      autoPlay: false,
+                      params: const YoutubePlayerParams(
+                        showFullscreenButton: false,
+                        captionLanguage: 'es',
+                        interfaceLanguage: 'es'
+                      ),
+                    );
+
+                    print(src);
+                  }
+
                   return Container(
                     padding: EdgeInsets.only(bottom: 20),
                     child:
                     StyledText(
                       text: paragraphs[i],
                       textAlign: TextAlign.justify,
+                      textHeightBehavior: TextHeightBehavior(),
                       style: TextStyle(
                         fontSize: 14,
                         height: 2,
@@ -77,6 +141,17 @@ class SingleNewsPage extends StatelessWidget {
                       tags: {
                         'strong': StyledTextTag(
                             style: TextStyle(fontWeight: FontWeight.w600)),
+                        'img': StyledTextWidgetTag(
+                          Image.network(
+                            src,
+                          ),
+                        ),
+                        'iframe': StyledTextWidgetTag(
+                            YoutubePlayer(
+                            controller: _controller,
+                            aspectRatio: 16 / 9,
+                          )
+                        ),
                       },
                     ),
                     // Text(

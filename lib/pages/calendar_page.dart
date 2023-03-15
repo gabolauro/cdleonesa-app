@@ -16,6 +16,17 @@ class CalendarPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final gameService = Provider.of<GameService>(context);
+    final section = ModalRoute.of(context)!.settings.arguments as String;
+    // List newsList() {
+    //   if (section=='Fútbol') {
+    //     return newsServide.futbolNewsList;
+    //   } else if (section=='Fútbol Femenino') {
+    //     return newsServide.femaleFutbolNewsList;
+    //   } else if (section=='Baloncesto') {
+    //     return newsServide.basketNewsList;
+    //   }
+    //   return [];
+    // };
 
     List<EventCard> _buildNextGames() {
       List<EventCard> list = [];
@@ -35,18 +46,44 @@ class CalendarPage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(40),
-              child: Text(
-                'Calendario',
-                style: TextStyle(
-                  fontSize: 28,
-                  color: MainTheme.mainColor,
-                  fontWeight: FontWeight.w800,
-                  decoration: TextDecoration.none
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: 'Calendario',
+                  style: TextStyle(
+                      fontSize: 28,
+                      color: MainTheme.mainColor,
+                      fontWeight: FontWeight.w800,
+                      decoration: TextDecoration.none
+                    ),
+                  children: [
+                      TextSpan(
+                        text: section,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w200,
+                        ),
+                      ),
+                  ],
                 ),
               ),
             ),
-      
-            CarouselSlider(
+
+            _buildNextGames().isEmpty
+            ? Container(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              alignment: Alignment.center,
+              child: Text(
+                'No hay próximos partidos',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black26,
+                  fontWeight: FontWeight.w200,
+                  decoration: TextDecoration.none
+                ),
+              ),
+            )
+            : CarouselSlider(
               items: [
       
                 ..._buildNextGames(),
@@ -63,49 +100,68 @@ class CalendarPage extends StatelessWidget {
                 )
             ),
       
-            MaterialButton(
-              onPressed: () {
-                Navigator.pushNamed(context, 'calendar-list');
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 40),
-                    child: RichText(
-                      text: const TextSpan(
-                        text: 'Ver',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w400,
-                            decoration: TextDecoration.none
-                          ),
-                        children: [
-                            TextSpan(
-                              text: ' calendario completo',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                              ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width *0.2),
+              margin: EdgeInsets.symmetric(vertical: 20),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'calendar-list');
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      child: RichText(
+                        text: const TextSpan(
+                          text: 'Ver',
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                              decoration: TextDecoration.none
                             ),
-                        ],
+                          children: [
+                              TextSpan(
+                                text: ' calendario completo',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SvgPicture.asset(
-                      'assets/images/arrow_right.svg',
-                      color: Colors.black26,
-                      height: 14,
-                      allowDrawingOutsideViewBox: true,
-                    ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgPicture.asset(
+                        'assets/images/arrow_right.svg',
+                        color: Colors.white,
+                        height: 14,
+                        allowDrawingOutsideViewBox: true,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-      
-            ListView.builder(
+
+            gameService.getLastGames().isEmpty
+            ? Container(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              alignment: Alignment.center,
+              child: Text(
+                'No hay previos partidos',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black26,
+                  fontWeight: FontWeight.w200,
+                  decoration: TextDecoration.none
+                ),
+              ),
+            )
+            : ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               reverse: true,
